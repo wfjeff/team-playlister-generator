@@ -12,17 +12,18 @@ class Song < Sequel::Model
     self.find(:name => name)
   end
 
-  def self.new_from_db(id)
-    self.find(:id => id)
+  def self.new_from_db(row)
+    self.new.tap do |song|
+      song.title = row[0]
+      song.artist = row[1]
+      song.genre = row[2]
+      song.save
+    end
   end
 
-  def insert
-    self.save
-  end
-  
-  def update
-  end
-
-  def save
+  def self.get_songs
+    Parser.parse.each do |songinfo|
+      self.new_from_db(songinfo)
+    end
   end
 end
