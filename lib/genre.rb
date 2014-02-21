@@ -7,18 +7,6 @@ class Genre < Sequel::Model
     Sequel::Migrator.run(DB, 'db/migrations', :target => 0)
   end
 
-  def insert
-    self.save
-  end
-
-  def update
-    self.
-  end
-
-  def save
-    if self.id
-
-
   def self.new_from_db(id)
     self.find(:id => id)
   end
