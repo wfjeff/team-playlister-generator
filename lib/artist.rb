@@ -15,22 +15,13 @@ class Artist < Sequel::Model
     self.find(:id => id)
   end
 
-  def insert
-    #add artist
-  end
-  
-  def update
-    #change artist name and save
-  end
-
-  def save
-  end
-
   def songs
-    #find songs where artist_id = self.id
+    song[:artist_id => self.id]
   end
 
   def genres
-    #find genre id and then object of songs with artist_id = self.id
+    song[:artist_id => self.id].collect do |song|
+      song.genre.name
+    end
   end
 end
