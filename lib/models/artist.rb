@@ -1,5 +1,20 @@
 class Artist < Sequel::Model
-    def self.create_table
+
+  ARTISTS = []
+
+  def initialize
+    ARTISTS << self
+  end
+
+  def all
+    ARTISTS
+  end
+
+  def url
+    self.name.downcase.gsub(" ", "_")
+  end
+
+  def self.create_table
     Sequel::Migrator.run(DB, 'db/migrations')
   end
 

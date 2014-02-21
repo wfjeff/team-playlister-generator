@@ -1,4 +1,19 @@
 class Genre < Sequel::Model
+
+  GENRES = []
+
+  def initialize
+    GENRES << self
+  end
+
+  def all
+    GENRES
+  end
+
+  def url
+    self.name.downcase.gsub(" ", "_")
+  end
+
   def self.create_table
     Sequel::Migrator.run(DB, 'db/migrations')
   end
