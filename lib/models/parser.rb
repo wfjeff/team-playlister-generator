@@ -1,10 +1,11 @@
 class Parser
-  def initialize
-    @path = 'playlistersite/db/data'
+  attr_accessor :path
+  def initialize(path)
+    @path = path
   end
 
   def files
-    Dir.entries("#{@path}").collect do |filename|
+    Dir.entries("#{self.path}").collect do |filename|
       filename unless /^\./.match(filename)
     end.compact
   end
