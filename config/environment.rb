@@ -1,4 +1,8 @@
+require 'sqlite3'
+require 'sequel'
 require 'lib/artist'
 require 'lib/song'
 require 'lib/genre'
 require 'lib/parser'
+require 'pry'
+require 'pry-nav'
