@@ -11,7 +11,9 @@
 	<h3>Genres: <%- artist.songs.collect{|song| song.genre.name}.join(", ") -%></h3>
 	<ul>
 		<% artist.songs.each do |song| %>
-		<li><%- song.title -%> (<%- -%>)
+		<li><%- song.title -%> (<%- song.genre.name -%>)</li>
+		<%- end -%>
 	</ul>
+	<p><a href="../artists.html"
 </body>
 </html>
