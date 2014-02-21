@@ -14,6 +14,12 @@ class Genre < Sequel::Model
     self.name.downcase.gsub(" ", "_")
   end
 
+  def order
+    GENRES.sort! do |a,b|
+      a.songs <=> b.songs
+    end
+  end
+
   def self.create_table
     Sequel::Migrator.run(DB, 'db/migrations')
   end
@@ -25,6 +31,16 @@ class Genre < Sequel::Model
   def self.new_from_db(id)
     self.find(:id => id)
   end
+
+  def songs
+    song[:genre_id => self.id]
+  end
+
+  def artists
+    song[:genre_id => self.id].collect do |song|
+      song.artist.name
+    end
+  end 
 
   def self.find_by_name(name)
     self.find(:name => name)
