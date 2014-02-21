@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+<head>
+	<title>Playlister -  <%=artist.name%></title>
+	<meta charset="utf-8" >
+	<link rel="stylesheet" type="text/css" href="./css/style.css" >
+</head>
+<body>
+	<h1><%=artist.name%></h1>
+	<h2>Songs: <%- artist.songs.count -%></h2>
+	<h3>Genres: <%- artist.songs.collect{|song| song.genre.name}.join(", ") -%></h3>
+</body>
+</html>
