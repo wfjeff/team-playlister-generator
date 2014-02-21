@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+	<title>Playlister -  <%- artist.name -%></title>
+	<meta charset="utf-8" >
+	<link rel="stylesheet" type="text/css" href="./css/style.css" >
+</head>
+<body>
+	<h1><%- artist.name -%></h1>
+	<h2>Songs: <%- artist.songs.count -%></h2>
+	<h3>Genres: <%- artist.songs.collect{|song| "<a href=\"../genres/#{song.genre.url}\"> #{song.genre.name}</a>" }.join(", ") -%></h3>
+	<ul>
+		<% artist.songs.each do |song| %>
+		<li><a href="./songs/<%- song.url -%>"><%- song.title -%></a> (<a href="../genres/<%- song.genre.url -%>"><%- song.genre.name -%>)</a></li>
+		<%- end -%>
+	</ul>
+	<p><a href="../artists.html">Artists</a> | <a href="../genres.html">Genres</a></p>
+</body>
+</html>
