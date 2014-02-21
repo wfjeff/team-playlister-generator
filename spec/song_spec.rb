@@ -1,30 +1,24 @@
 describe "Song class" do
   before(:each) do 
-    @song = Song.new
-    @id = 1
-    @song.name = "Party in the USA"
-    @song.artist_id = 1
-    @song.genre_id = 1
+    @song = Song.new.tap do |s|
+      binding.pry
+      s.name = "Party in the USA"
+      s.artist_id = 1
+      s.genre_id = 1
+      s.save
+    end
 
-    @genre = Genre.new
-    @id = 1
-    @genre.name = "pop"
+    @genre = Genre.new.tap do |g|
+      g.name = "pop"
+      g.save
+    end
     
-    @artist = Artist.new
-    @id = 1
-    @artist.name = "Miley"
+    @artist = Artist.new.tap do |a|
+      a.name = "Miley"
+      a.save
+    end
   end
   
-  it "can create a table" do
-    Song.create_table
-    # expect(DB[:conn].execute(table_check_sql)[0]).to eq(['songs'])
-  end
-
-  it "can drop a table" do
-    Song.create_table
-    # expect(DB[:conn].execute(table_check_sql)[0]).to be_nil
-  end
-
   it "lists instances in all method" do
     expect(Song.all.size).to eq(1)
   end

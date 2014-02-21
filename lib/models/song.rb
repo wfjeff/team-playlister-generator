@@ -6,8 +6,13 @@ class Song < Sequel::Model
     SONGS << self
   end
 
-  def all
-    SONGS
+  def self.all
+    binding.pry
+    DB.from(:songs).collect do |row|
+      binding.pry
+      new_from_db(row)
+      binding.pry
+    end
   end
 
   def url
@@ -28,10 +33,10 @@ class Song < Sequel::Model
 
   def self.new_from_db(row)
     self.new.tap do |song|
-      song.title = row[0]
-      song.artist = row[1]
-      song.genre = row[2]
-      song.save
+      song.id = row[0]
+      song.title = row[1]
+      song.artist_id = row[2]
+      song.genre_id = row[3]
     end
   end
 
