@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head>
+	<title>Playlister -  Artists</title>
+	<meta charset="utf-8" >
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+</head>
+<body>
+<h1>Artists</h1>
+<ul>
+	<%- Artist.all.each do |artist| -%>
+	<li><a href="./artists/<%- artist.url -%>"><%- artist.name -%></a></li>
+	<%- end -%>
+</ul>
+<p><a href="./index.html">Index</a> | <a href="./genres.html">Genres</a></p>
+</body>
+</html>
