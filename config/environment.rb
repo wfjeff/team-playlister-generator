@@ -1,8 +1,13 @@
 require 'sqlite3'
 require 'sequel'
-require 'lib/artist'
-require 'lib/song'
-require 'lib/genre'
-require 'lib/parser'
 require 'pry'
 require 'pry-nav'
+
+Sequel.extension :migration, :core_extensions
+Sequel::Migrator.run(Sequel.sqlite, 'db/migrations')
+# Sequel::Model.db=":memory:"
+
+require_relative '../lib/models/artist'
+require_relative '../lib/models/song'
+require_relative '../lib/models/genre'
+require_relative '../lib/models/parser'

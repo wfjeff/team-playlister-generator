@@ -11,12 +11,7 @@ class Parser
   end
 
   def parse_filename(filename)
-    parsed = []
-    parsedartist = filename.split(" - ")[0]
-    parsedtitle = parsedartist[1].to_s.split(" [")[0]
-    parsedgenre = parsedtitle[1].to_s.chomp('].mp3')
-    parsed << parsedartist << parsedtitle << parsedgenre
-    parsed
+    filename.gsub("].mp3","").gsub(" ["," - ").split(" - ")
   end
 
   def parse

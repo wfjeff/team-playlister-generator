@@ -3,8 +3,8 @@ Sequel.migration do
     create_table(:songs) do
       primary_key :id
       String :name
-      String :artist_id
-      String :genre_id 
+      Integer :artist_id
+      Integer :genre_id 
     end
 
     create_table(:artists) do
@@ -12,7 +12,7 @@ Sequel.migration do
       String :name
     end
 
-    create_table(:songs) do
+    create_table(:genres) do
       primary_key :id
       String :name
     end

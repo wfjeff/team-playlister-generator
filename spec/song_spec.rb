@@ -1,4 +1,4 @@
-describe "Song class"
+describe "Song class" do
   before(:each) do 
     @song = Song.new
     @id = 1
