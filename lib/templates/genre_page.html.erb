@@ -1,18 +1,18 @@
 <!doctype html>
 <html>
 <head>
-	<title>Playlister -  <%- genre.name -%></title>
+	<title>Playlister -  <%= genre.name %></title>
 	<meta charset="utf-8" >
 	<link rel="stylesheet" type="text/css" href="./css/style.css" >
 </head>
 <body>
-	<h1><%- genre.name -%></h1>
-	<h2>Songs: <%- genre.songs.count -%></h2>
-	<h3>Genres: <%- genre.songs.collect{|song| "<a href=\"../artists/#{song.artist.url}\"> #{song.artist.name}</a>" }.join(", ") -%></h3>
+	<h1><%= genre.name %></h1>
+	<h2>Songs: <%= genre.songs.count %></h2>
+	<h3>Artists: <%= genre.artists.collect{|artist| "<a href=\"../artists/#{artist.url}\"> #{artist.name}</a>" }.join(", ") %></h3>
 	<ul>
 		<% genre.songs.each do |song| %>
-		<li><a href="./songs/<%- song.url -%>"><%- song.title -%></a> - <a href="../artists/<%- song.artist.url -%>"><%- song.artist.name -%></a></li>
-		<%- end -%>
+		<li><a href="../songs/<%= song.url %>"><%= song.name %></a> - <a href="../artists/<%= song.artist.url %>"><%= song.artist.name %></a></li>
+		<% end %>
 	</ul>
 	<p><a href="../artists.html">Artists</a> | <a href="../genres.html">Genres</a></p>
 </body>

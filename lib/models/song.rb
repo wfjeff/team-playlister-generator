@@ -1,48 +1,52 @@
-class Song < Sequel::Model
+class Song 
+  extend DBable::ClassMethods
+  include DBable::InstanceMethods
 
-  SONGS = []
+  ATTRIBUTES = {
+    :id => "INTEGER PRIMARY KEY ASC",
+    :name => "TEXT",
+    :artist_id => "INTEGER",
+    :genre_id => "INTEGER"
+  }
+  
+  attr_accessor *ATTRIBUTES.keys
 
-  def initialize
-    SONGS << self
-  end
-
-  def self.all
-    binding.pry
-    DB.from(:songs).collect do |row|
-      binding.pry
-      new_from_db(row)
-      binding.pry
-    end
+  def self.attributes
+    ATTRIBUTES
   end
 
   def url
-    self.name.downcase.gsub(" ", "_")
+    self.name.downcase.gsub(" ", "_") << ".html"
   end
 
-  def self.create_table
-    Sequel::Migrator.run(DB, 'db/migrations')
+  def artist
+    Artist[:id => artist_id][0]
   end
 
-  def self.drop_table
-    Sequel::Migrator.run(DB, 'db/migrations', :target => 0)
-  end
-
-  def self.find_by_name(name)
-    self.find(:name => name)
-  end
-
-  def self.new_from_db(row)
-    self.new.tap do |song|
-      song.id = row[0]
-      song.title = row[1]
-      song.artist_id = row[2]
-      song.genre_id = row[3]
+  def artist=(artist)
+    if Artist[:name => artist].empty?
+      artist_id = Artist.new({:name => artist}).tap{ |a|
+        a.save
+      }.id
+    else
+      artist_id = Artist[:name => artist][0][0]
     end
+    save
   end
 
-  def self.get_songs
-    Parser.parse.each do |songinfo|
-      self.new_from_db(songinfo)
+  def genre=(genre)
+    if Genre[:name => genre].empty?
+      genre_id = Genre.new({:name => genre}).tap{ |g|
+        g.save
+      }.id
+    else
+      genre_id = Genre[:name => genre][0][0]
     end
+    save
   end
+
+  def genre
+    Genre[:id => genre_id][0]
+  end
+
 end

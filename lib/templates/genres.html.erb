@@ -8,9 +8,9 @@
 <body>
 <h1>Genres</h1>
 <ul>
-	<%- Genre.all_in_order.each do |genre| -%>
-	<li><a href="./genres/<%- genre.url -%>"><%- genre.name -%></a> Songs: <%- genre.songs.count -%> Artists: <%- genre.artists.count -%></li>
-	<%- end -%>
+	<% Genre.all_in_order.each do |genre| %>
+	<li><a href="./genres/<%= genre.url %>"><%= genre.name %></a> Songs: <%= genre.songs.count %> Artists: <%= genre.artists.count %></li>
+	<% end %>
 </ul>
 <p><a href="./artists.html">Artists</a> | <a href="./index.html">Index</a></p>
 </body>

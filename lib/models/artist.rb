@@ -1,42 +1,27 @@
-class Artist < Sequel::Model
+class Artist 
 
-  ARTISTS = []
+ 
+  extend DBable::ClassMethods
+  include DBable::InstanceMethods
 
-  def initialize
-    ARTISTS << self
-  end
+  ATTRIBUTES = {
+    :id => "INTEGER PRIMARY KEY ASC",
+    :name => "TEXT"
+  }
+  
+  attr_accessor *ATTRIBUTES.keys
 
-  def all
-    ARTISTS
-  end
-
-  def url
-    self.name.downcase.gsub(" ", "_")
-  end
-
-  def self.create_table
-    Sequel::Migrator.run(DB, 'db/migrations')
-  end
-
-  def self.drop_table
-    Sequel::Migrator.run(DB, 'db/migrations', :target => 0)
-  end
-
-  def self.find_by_name(name)
-    self.find(:name => name)
-  end
-
-  def self.new_from_db(id)
-    self.find(:id => id)
+  def self.attributes
+    ATTRIBUTES
   end
 
   def songs
-    song[:artist_id => self.id]
+    Song[:artist_id => self.id]
   end
 
   def genres
-    song[:artist_id => self.id].collect do |song|
-      song.genre.name
-    end
+    Song[:artist_id => self.id].collect do |song|
+      song.genre
+    end.uniq
   end
 end
